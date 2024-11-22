@@ -3,8 +3,6 @@ from dotenv import load_dotenv
 from langchain.agents import initialize_agent, AgentType, Tool
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import AzureChatOpenAI
-from langchain.llms import OpenAI
-from langchain.agents import AgentExecutor
 import logging
 
 # Carregar variáveis de ambiente do arquivo .env
@@ -49,22 +47,34 @@ Tarefa: {task}
 """
 prompt = PromptTemplate(input_variables=["task"], template=prompt_template)
 
-# Inicializar agentes (cada agente pode usar o mesmo LLM, mas pode agir de forma diferente)
-agent_1 = initialize_agent(
-    tools=tools, 
-    llm=llm,
-    agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True
-)
+# Função para inicializar agentes
+def initialize_agents():
+    agent_1 = initialize_agent(
+        tools=tools, 
+        llm=llm,
+        agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+        verbose=True
+    )
 
-agent_2 = initialize_agent(
-    tools=tools,
-    llm=llm,
-    agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True
-)
+    agent_2 = initialize_agent(
+        tools=tools,
+        llm=llm,
+        agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+        verbose=True
+    )
 
-# Interação simples de multi-agente: agente 1 passa uma tarefa para o agente 2
+    agent_3 = initialize_agent(
+        tools=tools,
+        llm=llm,
+        agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+        verbose=True
+    )
+    return agent_1, agent_2, agent_3
+
+# Inicializar agentes
+agent_1, agent_2, agent_3 = initialize_agents()
+
+# Interação de multi-agente: agente 1 faz uma pergunta ao agente 2 e ao agente 3
 def run_multi_agent_system(task):
     logging.info(f"Tarefa: {task}")
 
@@ -72,12 +82,21 @@ def run_multi_agent_system(task):
     agent_1_response = agent_1.run(task)
     logging.info(f"Resposta do Agente 1: {agent_1_response}")
 
-    # Agente 2 processa a saída do Agente 1
+    # Agente 1 faz uma pergunta ao Agente 2
     agent_2_response = agent_2.run(agent_1_response)
     logging.info(f"Resposta do Agente 2: {agent_2_response}")
 
-    # Combinar as respostas dos dois agentes
-    combined_response = f"Agente 1: {agent_1_response}\nAgente 2: {agent_2_response}"
+    # Agente 1 faz uma pergunta ao Agente 3
+    agent_3_response = agent_3.run(agent_2_response)
+    logging.info(f"Resposta do Agente 3: {agent_3_response}")
+
+    # Combinar as respostas dos três agentes com mais inteligência
+    combined_response = (
+        f"Agente 1 analisou a tarefa e respondeu: {agent_1_response}\n"
+        f"Agente 2 revisou a resposta do Agente 1 e adicionou: {agent_2_response}\n"
+        f"Agente 3 revisou a resposta do Agente 2 e adicionou: {agent_3_response}\n"
+        f"Conclusão: A colaboração entre os agentes resultou em uma solução mais robusta e detalhada."
+    )
     return combined_response
 
 # Função principal para interação com o usuário
