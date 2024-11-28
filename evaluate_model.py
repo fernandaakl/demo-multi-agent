@@ -11,7 +11,7 @@ client = AIProjectClient(endpoint=endpoint, credential=api_key)
 
 def evaluate_model(prompt):
     job = EvaluationJob(
-        model_id="text-davinci-003",
+        model_id="gpt-4",
         prompt=prompt,
         metrics=[
             EvaluationMetric(name="relevance"),
