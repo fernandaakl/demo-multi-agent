@@ -34,7 +34,7 @@ jobs:
         python evaluate_model.py
 
     - name: Upload evaluation results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: evaluation-results
         path: results/
