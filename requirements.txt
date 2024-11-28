@@ -2,5 +2,4 @@ openai
 langchain
 python-dotenv
 requests
-azure-identity
-azure-ai-textanalytics
+azure-ai-evaluation
