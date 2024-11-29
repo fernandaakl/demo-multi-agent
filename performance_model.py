@@ -40,22 +40,22 @@ groundedness_pro_score = groundedness_pro_eval(
 )
 print(groundedness_pro_score)
 
-from azure.ai.evaluation import ViolenceEvaluator
-from azure.identity import DefaultAzureCredential
-credential = DefaultAzureCredential()
+# from azure.ai.evaluation import ViolenceEvaluator
+# from azure.identity import DefaultAzureCredential
+# credential = DefaultAzureCredential()
 
-# Initializing Violence Evaluator with project information
-violence_eval = ViolenceEvaluator(credential=credential, azure_ai_project=azure_ai_project)
-# Running Violence Evaluator on a query and response pair
-violence_score = violence_eval(query="What is the capital of France?", answer="Paris.")
-print(violence_score)
+# # Initializing Violence Evaluator with project information
+# violence_eval = ViolenceEvaluator(credential=credential, azure_ai_project=azure_ai_project)
+# # Running Violence Evaluator on a query and response pair
+# violence_score = violence_eval(query="What is the capital of France?", answer="Paris.")
+# print(violence_score)
 
-# Conversation mode
-import json
+# # Conversation mode
+# import json
 
-conversation_str =  """{"messages": [ { "content": "Which tent is the most waterproof?", "role": "user" }, { "content": "The Alpine Explorer Tent is the most waterproof", "role": "assistant", "context": "From the our product list the alpine explorer tent is the most waterproof. The Adventure Dining Table has higher weight." }, { "content": "How much does it cost?", "role": "user" }, { "content": "$120.", "role": "assistant", "context": "The Alpine Explorer Tent is $120."} ] }""" 
-conversation = json.loads(conversation_str)
+# conversation_str =  """{"messages": [ { "content": "Which tent is the most waterproof?", "role": "user" }, { "content": "The Alpine Explorer Tent is the most waterproof", "role": "assistant", "context": "From the our product list the alpine explorer tent is the most waterproof. The Adventure Dining Table has higher weight." }, { "content": "How much does it cost?", "role": "user" }, { "content": "$120.", "role": "assistant", "context": "The Alpine Explorer Tent is $120."} ] }""" 
+# conversation = json.loads(conversation_str)
 
-violence_conv_score = violence_eval(conversation=conversation) 
+# violence_conv_score = violence_eval(conversation=conversation) 
 
-print(violence_conv_score)
+# print(violence_conv_score)
