@@ -21,7 +21,7 @@ from azure.ai.evaluation import GroundednessProEvaluator, GroundednessEvaluator
 
 # Initialzing Groundedness and Groundedness Pro evaluators
 groundedness_eval = GroundednessEvaluator(model_config)
-#groundedness_pro_eval = GroundednessProEvaluator(azure_ai_project=azure_ai_project, credential=credential)
+groundedness_pro_eval = GroundednessProEvaluator(azure_ai_project=azure_ai_project, credential=credential)
 
 query_response = dict(
     query="Which tent is the most waterproof?",
@@ -35,10 +35,10 @@ groundedness_score = groundedness_eval(
 )
 print(groundedness_score)
 
-# groundedness_pro_score = groundedness_pro_eval(
-#     **query_response
-# )
-# print(groundedness_pro_score)
+groundedness_pro_score = groundedness_pro_eval(
+     **query_response
+)
+print(groundedness_pro_score)
 
 from azure.ai.evaluation import ViolenceEvaluator
 from azure.identity import DefaultAzureCredential
