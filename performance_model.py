@@ -64,13 +64,3 @@ results = {
 }
 with open('results.json', 'w') as f:
     json.dump(results, f)
-
-# Gerando um gráfico com matplotlib
-scores = [groundedness_score, groundedness_pro_score, violence_conv_score]
-labels = ['Groundedness', 'Groundedness Pro', 'Violence', 'Violence (Conversation)']
-plt.bar(labels, scores)
-plt.xlabel('Evaluators')
-plt.ylabel('Scores')
-plt.title('Evaluation Scores')
-plt.savefig('graph.png')
-plt.show()
