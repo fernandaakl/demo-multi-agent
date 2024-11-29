@@ -57,7 +57,6 @@ violence_conv_score = violence_eval(conversation=conversation)
 results = {
     "groundedness_score": groundedness_score,
     "groundedness_pro_score": groundedness_pro_score,
-    "violence_score": violence_score,
     "violence_conv_score": violence_conv_score
 }
 with open('results.json', 'w') as f:
