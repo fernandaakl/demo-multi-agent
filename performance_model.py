@@ -40,6 +40,14 @@ groundedness_pro_score = groundedness_pro_eval(
 )
 print(groundedness_pro_score)
 
+import json
+
+conversation_str =  """{"messages": [ { "content": "Which tent is the most waterproof?", "role": "user" }, { "content": "The Alpine Explorer Tent is the most waterproof", "role": "assistant", "context": "From the our product list the alpine explorer tent is the most waterproof. The Adventure Dining Table has higher weight." }, { "content": "How much does it cost?", "role": "user" }, { "content": "$120.", "role": "assistant", "context": "The Alpine Explorer Tent is $120."} ] }""" 
+conversation = json.loads(conversation_str)
+
+groundedness_conv_score = groundedness_eval(conversation=conversation)
+print(groundedness_conv_score)
+
 # from azure.ai.evaluation import ViolenceEvaluator
 # from azure.identity import DefaultAzureCredential
 # credential = DefaultAzureCredential()
