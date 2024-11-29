@@ -42,4 +42,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: evaluation-results
-        path: results/
+        path: ./results.json
+
+    - name: Upload evaluation graph
+      uses: actions/upload-artifact@v2
+      with:
+        name: evaluation-graph
+        path: ./graph.png

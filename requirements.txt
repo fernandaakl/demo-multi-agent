@@ -4,3 +4,4 @@ python-dotenv
 requests
 azure-ai-evaluation
 azure-identity
+matplotlib

@@ -1,4 +1,5 @@
 import os
+import matplotlib.pyplot as plt
 from azure.identity import DefaultAzureCredential
 credential = DefaultAzureCredential()
 
@@ -53,6 +54,8 @@ conversation_str = """{"messages": [ { "content": "Which tent is the most waterp
 conversation = json.loads(conversation_str)
 violence_conv_score = violence_eval(conversation=conversation)
 
+print(violence_conv_score)
+
 # Salvando os resultados em um arquivo JSON
 results = {
     "groundedness_score": groundedness_score,
@@ -61,3 +64,13 @@ results = {
 }
 with open('results.json', 'w') as f:
     json.dump(results, f)
+
+# Gerando um gráfico com matplotlib
+scores = [groundedness_score, groundedness_pro_score, violence_conv_score]
+labels = ['Groundedness', 'Groundedness Pro', 'Violence', 'Violence (Conversation)']
+plt.bar(labels, scores)
+plt.xlabel('Evaluators')
+plt.ylabel('Scores')
+plt.title('Evaluation Scores')
+plt.savefig('graph.png')
+plt.show()
