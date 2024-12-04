@@ -5,3 +5,4 @@ requests
 azure-ai-evaluation
 azure-identity
 matplotlib
+ragas
